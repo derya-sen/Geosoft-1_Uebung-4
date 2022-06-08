@@ -1,32 +1,98 @@
-div.a {
-    text-align: center;
-    font-family: Consolas;
-    padding-top: 40px;
-    padding-right: 25%;
-    padding-left: 25%;
-  }
-  
-  div.script {
-    text-align: left;
-    font-family: Consolas;
-    font-size: 10px;
-  }
-  
-  th{
-    background-color: #A9A9A9;
-    color: white;
-  }
-  table, th, td {
-    padding: 10px;
-      border: 2px solid #A9A9A9;
-      border-color: solid black;
-      border-collapse: collapse;
-  }
-  .button {
-      text-align: center;
-       font-family: Consolas;
-  }
+html {
+  scroll-behavior: smooth;
+  font-family: Consolas;
+}
 
-  #map { height: 500px;
-        width: 800px }
+div.a {
+  text-align: center;
+  padding-top: 40px;
+  padding-right: 25%;
+  padding-left: 25%;
+}
+
+#mainMap {
+  height: 600px;
+}
+
+div.script {
+  text-align: left;
+  font-size: 14px;
+}
+
+th {
+  background-color: #044f64;
+  color: white;
+  text-align: left;
+}
+
+table,
+th,
+td {
+  height: auto;
+  padding: 10px;
+  border: 2px solid #044f64;
+  border-color: solid white;
+  border-collapse: collapse;
+}
+
+
+.button {
+  text-align: center;
+  color: white;
+  background-color: #044f64;
+}
+
+.header {
+  padding: 10px;
+  text-align: center;
+  background: #168fb0;
+  color: white;
+  font-size: 22px;
+}
+
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #168fb0;
+  color: white;
+  /* Irgendwie konnte ich den footer nicht richtig unten platzieren. Mit "position: absolute" 
+  liegt er bei home & Points-of-interst zwar unten aber bei bus-stops mitten in den tabelle*/
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  font-size: small;
+  height: 12%;
+}
+
+#navbar {
+  background-color: #044f64;
+  font-size: 150%;
+}
+
+#home-tab,
+#bus-tab,
+#points-tab {
+  color: #168fb0;
+}
+
+#pointTable {
+  height: auto;
+  padding: 10px;
+  border: 2px solid #044f64;
+  border-color: solid white;
+  border-collapse: collapse;
+}
+
+#position {
+  text-align: center;
+  color: #044f64;
+  font-size: 200%;
+  padding-top: 7%;
+}
+
+#nextBus {
+  color: #044f64;
+}
 

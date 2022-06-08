@@ -2,79 +2,158 @@
 <html lang="en">
 
 <head>
-    <title>GeoSoftware 1 Assignment 4</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="Übung_4-Derya_Sen.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
-        integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
-        crossorigin="" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css" />
-    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+  <title>GeoSoftware1 Assignment 5</title>
+  <meta charset="UTF-8">
 
+  <link rel="stylesheet" type="text/css" href="Uebung-5.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+    integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+    crossorigin="" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css" />
+
+  <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+    crossorigin=""></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
+  <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
+
+  <script src="pointcloud.js"></script>
+  <script src="point.js"></script>
+  <script src="pois.js"></script>
+  <script defer src="Uebung-5.js"></script>
+
+  <!-- Wenn ich folgende Datei einbinde, um die Points-of-Interest darzustelle, verschwinden die Inhalte 
+  auf der Bus-stops und der Points-of-Interest Seite. Ich konnte leider nicht lösen, woran das lag.
+   <script defer src="Uebung-5-2.js"></script> -->
 
 </head>
 
 <body onload="onLoad()">
-    <script src="point.js"></script>
 
 
-    <div class="a" align="center">
-        <h1>GeoSoftware1 Assignment 4</h1>
+  <div class="header">
+    <h1>Geosoftware 1 - SoSe 2022</h1>
+    <p>Westfälische-Wilhelms-Universität Münster</p>
+  </div>
 
-        <div>
-            course: Geosoftware I SoSe 2022 <br>
-            author: Derya Sen <br> <br>
+  <div id="navbar">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
+          role="tab" aria-controls="home" aria-selected="true">Home</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="bus-tab" data-bs-toggle="tab" data-bs-target="#bus" type="button" role="tab"
+          aria-controls="bus" aria-selected="false">Bus stops</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="points-tab" data-bs-toggle="tab" data-bs-target="#points" type="button" role="tab"
+          aria-controls="points" aria-selected="false">Points-of-Interest</button>
+      </li>
+    </ul>
+  </div>
 
-            This page is displaying all Bus stations of Münster in relation to a user-defined location and their
-            distance from the user on a map as well as on a table.
-            Additionally, for the closest bus station, they are displaying the according departure times.
-
-            <hr>
-
-            <div id="map"></div>
-
-
-            current position geojson: <br>
-            <textarea rows="2" id="userPosition"></textarea><br>
-            <button class="button" type="button" onclick="refresh()">refresh</button>
-            <button class="button" type="button" onclick="DocumentInterface.getLocation()">my geolocation</button>
-        </div>
-
+  <div class="tab-content">
+    <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+      <div id="position">
         <br>
-        <div id="nextDepartures">
-            <p id="nextDeparturesHeader"></p>
-            <table style="width:100%" align="center" id="nextDeparturesTable">
-                <tr>
-                    <th>line nr</th>
-                    <th>Bus line</th>
-                    <th>departure</th>
-                </tr>
-
-            </table>
-        </div>
+        <h2 style="font-size: 3pc;">My current position</h2>
+        current position geojson: <br>
+        <textarea rows="3" cols="64" id="userPosition"></textarea><br>
+        <button class="button" type="button" onclick="refresh()">refresh</button>
+        <button class="button" type="button" onclick="DocumentInterface.getLocation()">my geolocation</button>
         <br>
-
-        <table style="width:75%" align="center" id="resultTable">
-            <tr>
-                <th>Bus stop name</td>
-                <th>Coordinates</td>
-                <th>Distance (in meters)</td>
-            </tr>
-        </table>
-
-        <div id="geoJSON" class="script" align="center">
-        </div>
         <br>
-
+        <p> After you have entered or get your position, refresh the page.
+          <br>
+          Click on Bus-stops to receive informations about the next Bus-stop in relation to your position.
+          <br>
+          Click on Points-of-Interest to discover locations in Münster and their distance to your position.
+        </p>
+      </div>
     </div>
 
-    
-    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
-        integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
-        crossorigin=""></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
-    <script src="Übung_4-Derya_Sen.js"></script>
-    
+    <div class="tab-pane" id="bus" role="tabpanel" aria-labelledby="bus-tab" tabindex="0">
+      <br>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xl-3" id="nextBus">
+            <h2>Next Bus</h2>
+            <div id="nextDepartures">
+              <p id="nextDeparturesHeader"></p>
+              <table style="width:100%" align="center" id="nextDeparturesTable">
+                <tr>
+                  <th>line nr</th>
+                  <th>Bus line</th>
+                  <th>departure</th>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <br>
+
+          <div class="col-xl-9">
+            <div id="mainMap"></div>
+          </div>
+        </div>
+      </div>
+
+      <br>
+
+      <div id="allDepartures">
+        <table style="width:75%" align="center" id="resultTable">
+          <tr>
+            <th>Bus stop name</td>
+            <th>Coordinates</td>
+            <th>Distance (in meters)</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="tab-pane" id="points" role="tabpanel" aria-labelledby="points-tab" tabindex="0">
+      <div id="location">
+        <br>
+        <h2 style="text-align: center; color: #044f64;"> Locations in Münster</h2>
+        <br>
+        <table style="width:75%" align="center" id="pointTable">
+          <tr>
+            <th>Coordinates</td>
+            <th>Point of Interest</td>
+            <th>Distance (in meters)</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <br>
+
+  <div class="footer">
+    <h2>Impressum</h2>
+    <p>Institut für Geoinformatik
+      <br>
+      Heisenbergstraße 2, 48149 Münster
+      <br>
+      Telefon: 0251 8333083S
+    </p>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+    integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+    integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+    crossorigin="anonymous"></script>
+
 </body>
 
 </html>
